@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "stationsoundsystem:block/playback_device_top",
+    "side": "stationsoundsystem:block/playback_device_side"
+  }
+}

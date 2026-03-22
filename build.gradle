@@ -1,0 +1,63 @@
+plugins {
+    id 'java-library'
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.42-beta'
+}
+
+version = '1.0.2'
+group = 'com.example.stationsoundsystem'
+
+repositories {
+    mavenLocal()
+    maven { url = 'https://maven.neoforged.net/releases' }
+}
+
+base {
+    archivesName = 'stationsoundsystem'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    version = '21.1.77'
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'stationsoundsystem'
+        }
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'stationsoundsystem'
+        }
+    }
+
+    mods {
+        stationsoundsystem {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    // MP3 SPI for mp3 playback support
+    implementation 'com.googlecode.soundlibs:mp3spi:1.9.5.4'
+    implementation 'com.googlecode.soundlibs:jlayer:1.0.1.4'
+    implementation 'com.googlecode.soundlibs:tritonus-share:0.3.7.4'
+}
+
+jar {
+    from {
+        configurations.runtimeClasspath.filter {
+            it.name.contains('mp3spi') || it.name.contains('jlayer') || it.name.contains('tritonus')
+        }.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

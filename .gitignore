@@ -1,0 +1,34 @@
+# Gradle
+.gradle/
+build/
+bin/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+*.launch
+.metadata/
+
+# Design assets
+GUI素材/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# NeoForge
+runs/
+logs/
+
+# External mod JARs
+create-*.jar
+
+# Other
+*.log

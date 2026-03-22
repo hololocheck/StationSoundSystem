@@ -17,6 +17,14 @@
 
 [日本語](#japanese) | [English](#english)
 
+<p align="center">
+  <img src="screenshots/items.png" width="600" alt="追加アイテム・ブロック">
+</p>
+<p align="center">
+  <img src="screenshots/playback_gui.png" width="400" alt="再生装置GUI">
+  <img src="screenshots/recording_gui.png" width="400" alt="録音装置GUI">
+</p>
+
 ---
 
 <a id="japanese"></a>

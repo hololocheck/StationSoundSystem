@@ -17,14 +17,6 @@
 
 [日本語](#japanese) | [English](#english)
 
-<p align="center">
-  <img src="screenshots/items.png" width="600" alt="追加アイテム・ブロック">
-</p>
-<p align="center">
-  <img src="screenshots/playback_gui.png" width="400" alt="再生装置GUI">
-  <img src="screenshots/recording_gui.png" width="400" alt="録音装置GUI">
-</p>
-
 ---
 
 <a id="japanese"></a>
@@ -38,6 +30,23 @@
 | NeoForge | 21.1.168+ | ✅ |
 
 ※ 他のModへの依存はありません。単体で動作します。
+
+### 📸 スクリーンショット
+
+<p align="center">
+  <img src="screenshots/items.png" width="700" alt="追加アイテム一覧">
+  <br><em>追加アイテム・ブロック一覧 — 再生装置、録音装置、記録媒体（MP3/OGG/WAV）、範囲指定ボード</em>
+</p>
+
+<p align="center">
+  <img src="screenshots/playback_gui.png" width="700" alt="再生装置GUI">
+  <br><em>再生装置GUI — 再生/停止、減衰モード切替、範囲指定ボードスロット</em>
+</p>
+
+<p align="center">
+  <img src="screenshots/recording_gui.png" width="700" alt="録音装置GUI">
+  <br><em>録音装置GUI — ファイル選択、書き込みボタン、記録媒体スロット</em>
+</p>
 
 ### ✨ 追加アイテム・ブロック
 
@@ -133,6 +142,23 @@ A **NeoForge Mod** that lets you play custom audio files (MP3 / OGG / WAV) in-ga
 | NeoForge | 21.1.168+ | ✅ |
 
 No additional mod dependencies — works standalone.
+
+### 📸 Screenshots
+
+<p align="center">
+  <img src="screenshots/items.png" width="700" alt="Added Items">
+  <br><em>Added Items & Blocks — Playback Device, Recording Device, Recording Media (MP3/OGG/WAV), Range Board</em>
+</p>
+
+<p align="center">
+  <img src="screenshots/playback_gui.png" width="700" alt="Playback Device GUI">
+  <br><em>Playback Device GUI — Play/Stop, Attenuation Toggle, Range Board Slot</em>
+</p>
+
+<p align="center">
+  <img src="screenshots/recording_gui.png" width="700" alt="Recording Device GUI">
+  <br><em>Recording Device GUI — File Selection, Write Button, Recording Media Slot</em>
+</p>
 
 ### ✨ Added Items & Blocks
 

@@ -112,7 +112,8 @@ PCのローカルファイルから音声を記録媒体に書き込むブロッ
 | 右クリック（ブロック） | 座標を設定（Pos1→Pos2交互） |
 | 右クリック（空中） | 64ブロック先までレイキャストして座標設定 |
 | Shift + 右クリック | 座標をクリア |
-| スクロール | モード切替 / 減衰値調整 |
+| Alt + マウスホイール | モード切替 |
+| Ctrl + マウスホイール | 向いている方向の減衰距離を変更 |
 
 **HUD表示:**
 - 手に持つとホットバー上にモードパネルを表示
@@ -225,7 +226,8 @@ A tool for defining the 3D audible range by specifying two corner points.
 | Right-click (block) | Set coordinate (alternates Pos1→Pos2) |
 | Right-click (air) | Raycast up to 64 blocks to set coordinate |
 | Shift + Right-click | Clear coordinates |
-| Scroll | Toggle mode / adjust attenuation |
+| Alt + Mouse Wheel | Switch mode |
+| Ctrl + Mouse Wheel | Adjust attenuation distance for the direction you face |
 
 **HUD Display:**
 - Mode panel shown above hotbar while held

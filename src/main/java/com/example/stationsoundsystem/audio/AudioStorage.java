@@ -100,8 +100,8 @@ public class AudioStorage {
         return true;
     }
 
-    /** Maximum allowed audio file size (8 MB). NeoForge packet limit is ~8MB. */
-    public static final int MAX_AUDIO_SIZE = 8 * 1024 * 1024;
+    /** Maximum allowed audio file size (10 MB). Chunked upload bypasses single-packet limit. */
+    public static final int MAX_AUDIO_SIZE = 10 * 1024 * 1024;
 
     /**
      * Validate audio data size before saving. Returns an error message key or null if OK.
@@ -109,7 +109,7 @@ public class AudioStorage {
     @Nullable
     public static String validateSize(byte[] audioData) {
         if (audioData.length > MAX_AUDIO_SIZE) {
-            return "Audio file too large (" + (audioData.length / 1024 / 1024) + " MB). Maximum is 8 MB.";
+            return "Audio file too large (" + (audioData.length / 1024 / 1024) + " MB). Maximum is 10 MB.";
         }
         return null;
     }

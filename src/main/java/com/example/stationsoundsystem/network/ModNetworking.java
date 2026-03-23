@@ -10,12 +10,18 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 public class ModNetworking {
     @SubscribeEvent
     public static void register(final RegisterPayloadHandlersEvent event) {
-        final PayloadRegistrar registrar = event.registrar(StationSoundSystem.MOD_ID).versioned("1.0");
+        final PayloadRegistrar registrar = event.registrar(StationSoundSystem.MOD_ID).versioned("1.2");
 
         registrar.playToServer(
-                AudioUploadPayload.TYPE,
-                AudioUploadPayload.STREAM_CODEC,
-                AudioUploadPayload::handle
+                AudioUploadStartPayload.TYPE,
+                AudioUploadStartPayload.STREAM_CODEC,
+                AudioUploadStartPayload::handle
+        );
+
+        registrar.playToServer(
+                AudioUploadChunkPayload.TYPE,
+                AudioUploadChunkPayload.STREAM_CODEC,
+                AudioUploadChunkPayload::handle
         );
 
         registrar.playToServer(
@@ -67,12 +73,19 @@ public class ModNetworking {
         );
 
         registrar.playToClient(
+                ClientAudioChunkPayload.TYPE,
+                ClientAudioChunkPayload.STREAM_CODEC,
+                ClientAudioChunkPayload::handle
+        );
+
+        registrar.playToClient(
                 ClientStopAudioPayload.TYPE,
                 ClientStopAudioPayload.STREAM_CODEC,
                 ClientStopAudioPayload::handle
         );
 
-        registrar.playToClient(
+        // Optional: won't block connection if server/client versions differ
+        registrar.optional().playToClient(
                 ClientNotifyPayload.TYPE,
                 ClientNotifyPayload.STREAM_CODEC,
                 ClientNotifyPayload::handle

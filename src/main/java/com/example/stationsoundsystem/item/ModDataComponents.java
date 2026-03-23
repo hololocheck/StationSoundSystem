@@ -89,22 +89,16 @@ public class ModDataComponents {
      * EXCEPT AUDIO_DATA (which is too large for network NBT).
      * Centralised here so new components only need to be added in one place.
      */
+    /**
+     * Create a lightweight copy of the stack for network sync (getUpdateTag).
+     * Copies the full stack, then strips only the known-heavy components.
+     * This is future-proof: new components are automatically included.
+     */
     public static ItemStack createLiteStack(ItemStack stack) {
-        ItemStack lite = new ItemStack(stack.getItem(), stack.getCount());
-        copyIfPresent(stack, lite, AUDIO_FILE_NAME);
-        copyIfPresent(stack, lite, AUDIO_FORMAT);
-        copyIfPresent(stack, lite, AUDIO_ID);
-        copyIfPresent(stack, lite, RANGE_POS1);
-        copyIfPresent(stack, lite, RANGE_POS2);
-        copyIfPresent(stack, lite, ATTENUATION_RANGES);
+        ItemStack lite = stack.copy();
+        // Remove only the legacy bulk audio data component (the only heavy one)
+        lite.remove(AUDIO_DATA);
         return lite;
-    }
-
-    @SuppressWarnings("unchecked")
-    private static <T> void copyIfPresent(ItemStack from, ItemStack to, Supplier<DataComponentType<T>> type) {
-        if (from.has(type)) {
-            to.set(type, from.get(type));
-        }
     }
 
     /** Returns attenuation ranges as int[6] from the given range board stack. */

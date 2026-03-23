@@ -6,6 +6,7 @@ import com.example.stationsoundsystem.item.ModItems;
 import com.example.stationsoundsystem.item.RangeBoardItem;
 import com.example.stationsoundsystem.item.RecordingMediumItem;
 import com.example.stationsoundsystem.menu.PlaybackDeviceMenu;
+import com.example.stationsoundsystem.network.ClientAudioChunkPayload;
 import com.example.stationsoundsystem.network.ClientPlayAudioPayload;
 import com.example.stationsoundsystem.network.ClientStopAudioPayload;
 import net.minecraft.core.BlockPos;
@@ -154,12 +155,13 @@ public class PlaybackDeviceBlockEntity extends BlockEntity implements MenuProvid
         setChanged();
         level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 
-        ClientPlayAudioPayload clientPayload = new ClientPlayAudioPayload(
-                getBlockPos(), audioData, format, rangePos1, rangePos2,
+        ClientPlayAudioPayload metaPayload = new ClientPlayAudioPayload(
+                getBlockPos(), audioData.length, format, rangePos1, rangePos2,
                 attenuationMode, attRanges);
         if (level instanceof ServerLevel sl) {
             for (ServerPlayer sp : sl.getServer().getPlayerList().getPlayers()) {
-                PacketDistributor.sendToPlayer(sp, clientPayload);
+                PacketDistributor.sendToPlayer(sp, metaPayload);
+                ClientAudioChunkPayload.sendChunked(sp, getBlockPos(), audioData);
             }
         }
     }

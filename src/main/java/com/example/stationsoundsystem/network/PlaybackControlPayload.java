@@ -65,12 +65,13 @@ public record PlaybackControlPayload(BlockPos pos, boolean play) implements Cust
 
                 be.setIsPlaying(true);
 
-                ClientPlayAudioPayload clientPayload = new ClientPlayAudioPayload(
-                        payload.pos, audioData, format, rangePos1, rangePos2,
+                ClientPlayAudioPayload metaPayload = new ClientPlayAudioPayload(
+                        payload.pos, audioData.length, format, rangePos1, rangePos2,
                         be.isAttenuationMode(), attRanges);
 
                 for (ServerPlayer sp : sl.getServer().getPlayerList().getPlayers()) {
-                    PacketDistributor.sendToPlayer(sp, clientPayload);
+                    PacketDistributor.sendToPlayer(sp, metaPayload);
+                    ClientAudioChunkPayload.sendChunked(sp, payload.pos, audioData);
                 }
 
             } else {

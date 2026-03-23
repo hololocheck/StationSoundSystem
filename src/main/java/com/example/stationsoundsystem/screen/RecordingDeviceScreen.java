@@ -3,7 +3,8 @@ package com.example.stationsoundsystem.screen;
 import com.example.stationsoundsystem.StationSoundSystem;
 import com.example.stationsoundsystem.blockentity.RecordingDeviceBlockEntity;
 import com.example.stationsoundsystem.menu.RecordingDeviceMenu;
-import com.example.stationsoundsystem.network.AudioUploadPayload;
+import com.example.stationsoundsystem.network.AudioUploadChunkPayload;
+import com.example.stationsoundsystem.network.AudioUploadStartPayload;
 import com.example.stationsoundsystem.network.ClearAudioPayload;
 import com.example.stationsoundsystem.network.StartRecordingPayload;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -126,10 +127,24 @@ public class RecordingDeviceScreen extends AbstractContainerScreen<RecordingDevi
                         }
 
                         RecordingDeviceBlockEntity be = menu.getBlockEntity();
-                        PacketDistributor.sendToServer(
-                                new AudioUploadPayload(be.getBlockPos(), selectedFileData, selectedFileName, selectedFormat));
 
-                        StationSoundSystem.LOGGER.info("Selected audio file: {}", selectedFileName);
+                        // Send as chunked upload to avoid packet size limit
+                        int totalSize = selectedFileData.length;
+                        int chunkSize = AudioUploadChunkPayload.CHUNK_SIZE;
+                        int chunkCount = (totalSize + chunkSize - 1) / chunkSize;
+
+                        PacketDistributor.sendToServer(new AudioUploadStartPayload(
+                                be.getBlockPos(), selectedFileName, selectedFormat, totalSize, chunkCount));
+
+                        for (int i = 0; i < chunkCount; i++) {
+                            int offset = i * chunkSize;
+                            int len = Math.min(chunkSize, totalSize - offset);
+                            byte[] chunk = new byte[len];
+                            System.arraycopy(selectedFileData, offset, chunk, 0, len);
+                            PacketDistributor.sendToServer(new AudioUploadChunkPayload(i, chunk));
+                        }
+
+                        StationSoundSystem.LOGGER.info("Selected audio file: {} ({} chunks)", selectedFileName, chunkCount);
                     } catch (IOException e) {
                         StationSoundSystem.LOGGER.error("Failed to read audio file", e);
                         selectedFileData = null;

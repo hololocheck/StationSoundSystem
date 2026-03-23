@@ -32,3 +32,6 @@ create-*.jar
 
 # Other
 *.log
+
+# Root-level screenshots (already in screenshots/)
+/2026-*.png

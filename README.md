@@ -93,6 +93,7 @@ PCのローカルファイルから音声を記録媒体に書き込むブロッ
 
 - 音声データはワールドの `stationsoundsystem_audio/` ディレクトリに個別ファイルとして保存
 - アイテム自体にはUUID参照のみ保持（軽量・破損耐性）
+- 書き込まれた音声形式に応じてアイテムのテクスチャが変化（MP3 / OGG / WAV）
 - ツールチップにファイル名と形式を表示
 
 ---
@@ -205,6 +206,7 @@ An item that stores audio data.
 
 - Audio data saved as individual files in `stationsoundsystem_audio/` within the world directory
 - Item holds only a UUID reference (lightweight, corruption-resistant)
+- Item texture changes based on the stored audio format (MP3 / OGG / WAV)
 - Tooltip displays filename and format
 
 ---
